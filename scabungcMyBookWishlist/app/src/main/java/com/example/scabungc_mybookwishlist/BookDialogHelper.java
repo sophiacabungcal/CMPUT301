@@ -40,6 +40,8 @@ public class BookDialogHelper {
     }
 
     private void showBookDialog(String title, Book book, int position) {
+        // Method for how the dialog will be shown during add/edit/view mode
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
 
@@ -51,11 +53,15 @@ public class BookDialogHelper {
         setupGenreDropdown(genreSpinner, genreOther);
 
         if (book != null) {
+            // Clicking on a book will automatically open in View mode where fields are non-editable
+
             populateDialogFields(view, book, genreSpinner, genreOther);
             setDialogFieldsEditable(view, false);
             builder.setTitle("Viewing Book Details");
             builder.setPositiveButton(R.string.edit_button, null);
         } else {
+            // Adding a book opens the dialog directly in editable mode
+
             setDialogFieldsEditable(view, true);
             builder.setTitle("Adding New Book");
             builder.setPositiveButton(R.string.save_button, null);
@@ -79,6 +85,8 @@ public class BookDialogHelper {
             });
 
             if (book != null) {
+                // If the user clicks the edit btn in view mode, makes the fields editable and changes the title/btns
+
                 Button editButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 editButton.setOnClickListener(v -> {
                     setDialogFieldsEditable(view, true);
@@ -103,6 +111,8 @@ public class BookDialogHelper {
     }
 
     private void setupGenreDropdown(Spinner genreSpinner, EditText genreOther) {
+        // Configures the genre dropdown spinner and the "Other" genre field
+
         genreSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -117,6 +127,8 @@ public class BookDialogHelper {
     }
 
     private void setDialogFieldsEditable(View view, boolean editable) {
+        // Configures the dialog fields to be editable or non-editable
+
         EditText bookTitle = view.findViewById(R.id.bookTitle);
         EditText bookAuthor = view.findViewById(R.id.bookAuthor);
         Spinner bookGenreSpinner = view.findViewById(R.id.bookGenreSpinner);
@@ -133,6 +145,8 @@ public class BookDialogHelper {
     }
 
     private void populateDialogFields(View view, Book book, Spinner genreSpinner, EditText genreOther) {
+        // Populates the dialog fields with the book's prev saved details
+
         ((EditText) view.findViewById(R.id.bookTitle)).setText(book.getTitle());
         ((EditText) view.findViewById(R.id.bookAuthor)).setText(book.getAuthor());
         ((EditText) view.findViewById(R.id.bookYear)).setText(String.valueOf(book.getPublicationYear()));
@@ -150,6 +164,8 @@ public class BookDialogHelper {
     }
 
     private void addBook(View view, AlertDialog dialog) {
+        // Validates user input and adds a new book to the list
+
         if (validateInputs(view)) {
             Book newBook = createBookFromInputs(view);
             bookList.add(newBook);
@@ -163,6 +179,8 @@ public class BookDialogHelper {
     }
 
     private void updateBook(View view, AlertDialog dialog, Book book, int position) {
+        // Validates user input and updates the book in the list
+
         if (validateInputs(view)) {
             updateBookFromInputs(view, book);
             ((MainActivity) context).runOnUiThread(() -> {
@@ -174,6 +192,8 @@ public class BookDialogHelper {
     }
 
     private void confirmDeleteBook(int position, AlertDialog dialog) {
+        // Displays a confirmation dialog before deleting a book
+
         new AlertDialog.Builder(context)
                 .setTitle("Confirm Delete")
                 .setMessage("Are you sure you want to delete this book?")
@@ -190,6 +210,9 @@ public class BookDialogHelper {
     }
 
     private boolean validateInputs(View view) {
+        // Validates the user input for the book details according to requierments
+        // Returns true if all fields are valid, false otherwise
+
         String title = ((EditText) view.findViewById(R.id.bookTitle)).getText().toString();
         String author = ((EditText) view.findViewById(R.id.bookAuthor)).getText().toString();
         Spinner genreSpinner = view.findViewById(R.id.bookGenreSpinner);
@@ -223,6 +246,8 @@ public class BookDialogHelper {
     }
 
     private Book createBookFromInputs(View view) {
+        // Creates a new book object from the user input using the dialog fields
+
         String title = ((EditText) view.findViewById(R.id.bookTitle)).getText().toString();
         String author = ((EditText) view.findViewById(R.id.bookAuthor)).getText().toString();
         Spinner genreSpinner = view.findViewById(R.id.bookGenreSpinner);
@@ -239,6 +264,8 @@ public class BookDialogHelper {
     }
 
     private void updateBookFromInputs(View view, Book book) {
+        // Updates the book object w/ the details from the dialog fields
+
         String title = ((EditText) view.findViewById(R.id.bookTitle)).getText().toString();
         String author = ((EditText) view.findViewById(R.id.bookAuthor)).getText().toString();
         Spinner genreSpinner = view.findViewById(R.id.bookGenreSpinner);
@@ -259,6 +286,8 @@ public class BookDialogHelper {
     }
 
     private void updateCounts() {
+        // Updates the total book count and total read book count at the page header
+
         totalBooks.setText(String.format("Total # of Books: %d", bookList.size()));
         int readBooksCount = 0;
         for (Book book : bookList) {
