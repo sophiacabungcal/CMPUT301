@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">scabungc-MyBookWishlist</string>
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="author_template">Author: %1$s</string>
+    <string name="genre_template">Genre: %1$s</string>
+    <string name="other_genre">Other Genre</string>
+    <string name="publication_year">Publication Year</string>
+    <string name="read">Read</string>
+    <string name="total_read">Total # of Read Books: 0</string>
+    <string name="total_books">Total # of Books: 0</string>
+    <string name="delete_button">Delete</string>
+    <string name="add_button">Add Book</string>
+    <string name="save_button">Save</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="edit_button">Edit</string>
+    <string name="yes_button">"Yes"</string>
+    <string-array name="genre_array">
+        <item>Fiction</item>
+        <item>Non-Fiction</item>
+        <item>Science Fiction</item>
+        <item>Fantasy</item>
+        <item>Mystery</item>
+        <item>Biography</item>
+        <item>Other</item>
+    </string-array>
+</resources>
